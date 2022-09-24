@@ -15,7 +15,7 @@ Codes written in R from my probability and statistics classes along with codes f
 #####
 
 ##### Stringr is necesary to run this scrip do
-    # If you dont have the packages string
+     If you dont have the packages string
 	# $ sudo -i R
 	# > install.packages("stringr")
 	# > install.packages("devtools")
