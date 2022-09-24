@@ -24,9 +24,9 @@ $ sudo -i R
 $ sudo -i R
 ```
 ```R
-    > install.packages("stringr")
-	> install.packages("devtools")
-	> devtools::install_github("tidyverse/stringr")	
+    >install.packages("stringr")
+    >install.packages("devtools")
+    >devtools::install_github("tidyverse/stringr")	
 ```
 #### If you want to run this code only put in the terminal
 ```bash
