@@ -1,5 +1,5 @@
 ## r-probability-and-statistics
-Codes written in R from my probability and statistics classes along with codes from my own research. :D
+> Codes written in R from my probability and statistics classes along with codes from my own research. :D
 ### To install R on debian-based distributions
 ```bash
 $ sudo apt update 
@@ -18,15 +18,16 @@ $ sudo -i R
 ```R
     >q()
 ```
-##### Stringr is needed to run my scribd hello world.R and others...
-###### If you don't have the packages stringr
+> Stringr is needed to run my scribd hello world.R and others...
+> If you don't have the packages stringr
 ```bash
 $ sudo -i R
 ```
 ```R
     >install.packages("stringr")
     >install.packages("devtools")
-    >devtools::install_github("tidyverse/stringr")	
+    >devtools::install_github("tidyverse/stringr")
+    >q()	
 ```
 ### If you want to run this code only put in the terminal
 ```bash
