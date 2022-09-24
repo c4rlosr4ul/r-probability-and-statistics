@@ -1,3 +1,5 @@
+#that_is_a_commentariou XD
+
 # If you dont have the packages string
 # $ sudo -i R
 # > install.packages("stringr")
@@ -5,7 +7,6 @@
 # > devtools::install_github("tidyverse/stringr")	
 
 library('stringr')
-#that_is_a_commentariou XD
 variable <- c("hola_csmares")
 var1 <- c("hola_csmares tiene >>")
 var2 <- c("caracteres :P")
