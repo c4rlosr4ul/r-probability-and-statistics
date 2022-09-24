@@ -14,12 +14,12 @@ $ sudo apt install r-base
 ```bash
 $ sudo -i R
 ``` 
-##### Exit R shell whit...
+#### Exit R shell with...
 ```R
     >q()
 ```
-##### Stringr is necesary to run this scrip do my hola_mundo
-###### If you dont have the packages string
+##### Stringr is needed to run my scribd hello world.R and others...
+###### If you don't have the packages stringr
 ```bash
 $ sudo -i R
 ```
@@ -28,7 +28,7 @@ $ sudo -i R
     >install.packages("devtools")
     >devtools::install_github("tidyverse/stringr")	
 ```
-#### If you want to run this code only put in the terminal
+### If you want to run this code only put in the terminal
 ```bash
 $ Rscript hola_mundo.R
 ```
