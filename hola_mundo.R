@@ -1,6 +1,6 @@
-#that_is_a_commentariou XD
+#that_is_a_commentary XD
 
-# If you dont have the packages string
+# If you don't have the packages string
 # $ sudo -i R
 # > install.packages("stringr")
 # > install.packages("devtools")
