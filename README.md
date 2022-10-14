@@ -29,7 +29,7 @@ $ sudo -i R
     >devtools::install_github("tidyverse/stringr")
     >q()	
 ```
-### If you want to run this script in your terminal, just put... and that's it :D
+### If you want to run my scripts in your terminal, just put... and that's it :D
 ```bash
 $ Rscript hola_mundo.R
 ```
