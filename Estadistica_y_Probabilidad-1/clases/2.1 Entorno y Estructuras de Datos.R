@@ -383,7 +383,7 @@ is.matrix(y)              # El objeto y, ¿es una matriz? :c
 
 # Asignando nombre a las filas y columnas
 # Funciones dimnames, colnames y rownames
-datos<-matrix(c(20,65,174,22,70,180,19,68,170),),nrow=3, byrow=T)
+datos<-matrix(c(20,65,174,22,70,180,19,68,170),nrow=3, byrow=T)
 datosxD<-matrix(c(20,65,174,22,70,180,19,68,170),nrow=3, byrow=T)
 datos
 datosxD
@@ -624,5 +624,4 @@ detach(diamonds)
 price
 diamonds$priced
 View(diamonds)
- 
-:D
+##D
