@@ -3,50 +3,25 @@ setwd("../r-probability-and-statistics/Fisica-Experimental/")
 
 library(readr)
 library(readxl)
-
-
+library(ggplot2)
 
 #Angulos entan en grados sexagesimales 
-
-
+#Todo lo demas está en el S.I
 
 excel_sheets("Semama.6.1.xlsx") #Nombres de las hojas
-excel_sheets("Semama.6.2.xlsx") #Nombres de las hojas
-
-#Datos teniendo en cuenta sistema de referencia fijo :p
-
-datos_d_n <- read_excel("Semama.6.2.xlsx", "disco_naranja")
-datos_d_a <- read_excel("Semama.6.2.xlsx", "disco_azul")
-datos_c_m <- read_excel("Semama.6.2.xlsx", "centro_de_masa") #semama xD :0
-datos_p_g_a <- read_excel("Semama.6.2.xlsx", "punto_giratorio_azul")
-datos_p_g_n <- read_excel("Semama.6.2.xlsx", "punto_giratorio_naranja")
-
-
 
 #1.- Datos teniendo en cuenta sistema de referencia movil al centro de masa :D
 datos_d_n <- read_excel("Semama.6.1.xlsx", "disco_naranja")
 datos_d_a <- read_excel("Semama.6.1.xlsx", "disco_azul")
-datos_p_g_a <- read_excel("Semama.6.1.xlsx", "punto_giratorio_azul")
-datos_p_g_n <- read_excel("Semama.6.1.xlsx", "punto_giratorio_naranja")
-
-  datos_d_n
 
 #Limpieza de datos
-datos_d_a <- datos_d_a[datos_d_a$frame >= 616 & datos_d_a$frame <= 659, ]
+datos_d_a <- datos_d_a[datos_d_a$frame >= 615 & datos_d_a$frame <= 659, ]
 datos_d_a
 View(datos_d_a)
 
-datos_d_n <- datos_d_n[datos_d_n$frame >= 616 & datos_d_n$frame <= 659, ]
+datos_d_n <- datos_d_n[datos_d_n$frame >= 615 & datos_d_n$frame <= 659, ]
 datos_d_n
 View(datos_d_n)
-
-datos_c_m <- datos_c_m[datos_c_m$frame >= 616 & datos_c_m$frame <= 659, ]
-datos_c_m
-View(datos_c_m)
-
-datos_p_g_a
-
-datos_p_g_a
 
 
 # 1. Analisis disco naranja
@@ -63,6 +38,11 @@ ncol(datos_d_a); nrow(datos_d_a)
   plot(datos_d_n_pre_impacto[["t"]],datos_d_n_pre_impacto[["y"]] )
   plot(datos_d_n_post_impacto[["t"]],datos_d_n_post_impacto[["y"]])
   
+  plot(datos_d_n_pre_impacto[["t"]],datos_d_n_pre_impacto[["angulo"]] )
+  plot(datos_d_n_post_impacto[["t"]],datos_d_n_post_impacto[["angulo"]])
+  
+  
+  
   # 1.2. Disco azul
   datos_d_a_pre_impacto <- datos_d_a[datos_d_a$frame <= 624, ]
   datos_d_a_post_impacto <- datos_d_a[datos_d_a$frame >= 624, ]
@@ -73,85 +53,96 @@ ncol(datos_d_a); nrow(datos_d_a)
   plot(datos_d_a_pre_impacto[["t"]],datos_d_a_pre_impacto[["y"]] )
   plot(datos_d_a_post_impacto[["t"]],datos_d_a_post_impacto[["y"]])
   
-
-max(datos_d_n_post_impacto[["x"]])  
-min(datos_d_n_post_impacto[["x"]])  
-  # Secuencia lógica
-  #TF <- datos_d_n_post_impacto[datos_d_n_post_impacto$x == max(datos_d_n_post_impacto[["x"]]), ][["t"]]
-  #tf <- TF[["t"]]
-  # tf
-  #Calculo de la velocidad angular
-# Velocidad angular disco naranja 
-  ti <- datos_d_n_post_impacto[datos_d_n_post_impacto$x == max(datos_d_n_post_impacto[["x"]]), ][["t"]]
-  ti
+  plot(datos_d_a_pre_impacto[["t"]],datos_d_a_pre_impacto[["angulo"]] )
+  plot(datos_d_a_post_impacto[["t"]],datos_d_a_post_impacto[["angulo"]])
   
-  tf <- datos_d_n_post_impacto[datos_d_n_post_impacto$x == min(datos_d_n_post_impacto[["x"]]), ][["t"]]
-  tf
 
-  ti <- datos_d_n_post_impacto[datos_d_n_post_impacto$y == max(datos_d_n_post_impacto[["y"]]), ][["t"]]
-  ti
+  #Velocidad angula experimental
   
-  tf <- datos_d_n_post_impacto[datos_d_n_post_impacto$y == min(datos_d_n_post_impacto[["y"]]), ][["t"]]
-  tf
-
+  ggplot(datos_d_a, aes(x=t, y=angulo)) + geom_point() + theme_light()
+  ggplot(datos_d_n, aes(x=t, y=angulo)) + geom_point() + theme_light()
   
-v_angular_teo <-  2*(pi/(tf - ti))
+  summary(lm(angulo ~ t, data = datos_d_a_post_impacto))
+   #Por lo tanto en el disco naranja
+    angulo = 37.042 + 368.732*t
+    #Entonces la velocidad angular experimental del disco azul post impacto es
+    v_a_exp_p_i_d_a = 368.732*pi/180 
+    v_a_exp_p_i_d_a #rad/s
+      
+  summary(lm(angulo ~ t, data = datos_d_n_post_impacto))
+   #Por lo tanto en el disco azul
+    angulo = -142.958 + 368.732*t
+  
+    #Entonces la velocidad angular experimental del disco naranja post impacto es
+    v_a_exp_p_i_d_n = 368.732*pi/180 
+    v_a_exp_p_i_d_n #rad/s
+    
+  #Finalmente
+    v_angular_experimental = 6.43 #rad/s
+    
+    
 
-v_angular_teo #Indistinto si se toma a y o x
-
-
-#Producto R(x)U
+#Producto R(x)U todo el tramo
 RxU_1 <- datos_d_n[["y"]]*datos_d_n[["vx"]] - datos_d_n[["x"]]*datos_d_n[["vy"]]
 RxU_2 <- datos_d_a[["y"]]*datos_d_a[["vx"]] - datos_d_a[["x"]]*datos_d_a[["vy"]]
 
-RxU_cm <- datos_c_m[["y"]]*datos_c_m[["vx"]] - datos_c_m[["x"]]*datos_c_m[["vy"]]
-
 RxU_1
 RxU_2
-
-RxU_cm
-
-
-R <- ((datos_d_a[["x"]] + datos_d_n[["x"]])^2 + (datos_d_a[["y"]] + datos_d_n[["y"]])^2 )^(0.5)
-R
-# Radio de n
-R_n <- (datos_d_n_post_impacto[["x"]]^2 + datos_d_n_post_impacto[["x"]]^2)^(0.5)
-R_n
-  plot(datos_d_n_post_impacto[["t"]], R_n)
-#Radio de a
-R_a <- (datos_d_a_post_impacto[["x"]]^2 + datos_d_a_post_impacto[["x"]]^2)^(0.5)
-R_a
-  plot(datos_d_a_post_impacto[["t"]], R_a)
-R_a
-
-
-
-datos_d_a[["x"]]
-datos_d_n[["x"]]
-(datos_d_a[["x"]] + datos_d_n[["x"]])^2
-
-plot(datos_d_a[["t"]], R)
-# Cuando se emplea un sistema inercial fijo
-
-  v_angular_exp <- (RxU_1 + RxU_2 - 2*RxU_cm)/(3*(R^2))
-
-#Está es teorica :U
-#La experememtal es defrente tomar el \theta del tracker
   
-  v_angular_exp
+#Producto R(x)U todo el post impacto
+RxU_1_p_i <- datos_d_n_post_impacto[["y"]]*datos_d_n_post_impacto[["vx"]] - datos_d_n_post_impacto[["x"]]*datos_d_n_post_impacto[["vy"]] 
+RxU_2_p_i <- datos_d_a_post_impacto[["y"]]*datos_d_a_post_impacto[["vx"]] -  datos_d_a_post_impacto[["x"]]*datos_d_a_post_impacto[["vy"]] 
 
-  plot(datos_d_a[["t"]], v_angular_exp)
 
-# Cuando se emple un sistema de referencia inercial movil (centro de masa)
-  v_angular_exp <- (RxU_1 + RxU_2)/(3*(R^2))
+RxU_1_p_i
+RxU_2_p_i
   
-  v_angular_exp
+
+#Radio para sistema de referecia centro de masa
+  # Radio del disco naranja 
+  R_n <- (datos_d_n_post_impacto[["x"]]^2 + datos_d_n_post_impacto[["y"]]^2)^(0.5)
+  R_n
+    plot(datos_d_n_post_impacto[["t"]], R_n)
+  #Radio de disco azul
+  R_a <- (datos_d_a_post_impacto[["x"]]^2 + datos_d_a_post_impacto[["y"]]^2)^(0.5)
+  R_a
+    plot(datos_d_a_post_impacto[["t"]], R_a)
+  R_a
   
-  plot(datos_d_a[["t"]], v_angular_exp)
+  R_f=(R_a^2 +R_n^2)^(0.5)
+  R_f
+    plot(datos_d_a_post_impacto[["t"]], R_f)
+  mean(R_f)
+    #Por lo tanto el radio de las esferas es 0.17 metros
+
+#Velocidad angular teorica post impacto
+  
+v_angular_teorica <- (RxU_1_p_i + RxU_2_p_i)/(3*R_f^2)
+  plot(datos_d_a_post_impacto[["t"]], v_angular_teorica) #\rightsquare
+  mean(v_angular_teorica)
+  #Por lo tanto la velocidad angular teorica es 2.12
+  v_angular_teorica = 2.12
 
 
-error = abs(v_angular_exp/v_angular_teo - 1)*100
-error
-plot(error)
+#Por lo tanto el error porcentual de la velocidad angular es
+  
+  error_porcentual <- (v_angular_experimental/v_angular_teorica - 1)*100
+  error_porcentual
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
