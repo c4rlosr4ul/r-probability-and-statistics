@@ -2,6 +2,7 @@ install.packages("DataExplorer")
 install.packages("openxlsx")
 install.packages("ggthemes")
 install.packages("ggplot2")
+install.packages("extrafont")
 
 library(ggthemes)
 library(ggplot2)
@@ -10,6 +11,16 @@ library(DataExplorer)
 library(readxl)
 library(readr)
 library(openxlsx)
+
+library(extrafont)
+
+font_import()                 #Escanea las fuentes en el equipo
+loadfonts(device="win")       #Registra las fuentes de windows
+fonts()                       #Vector de fuentes disponibles
+##  [1] "Andale Mono"                  "AppleMyungjo"                
+##  [3] "Arial Black"                  "Arial"                       
+##  [5] "Arial Narrow"                 "Arial Rounded MT Bold"  :P
+
 
 
 Airlinewise_Monthly_International_Air_Traffic_To_And_From_The_Indian_Territory <- read_csv("datasets/Airlinewise Monthly International Air Traffic To And From The Indian Territory.csv")
@@ -109,7 +120,7 @@ View(trafico_trimestral_por_pais)
         print(length(sort(unique(as.factor(trafico_trimestral_por_pais$`COUNTRY NAME`)))))
           print(sort(unique(as.factor(trafico_trimestral_por_pais$`COUNTRY NAME`))))
       
-      ##2 
+      ##3 
           
         print(length(sort(unique(as.factor(trafico_trimestral_por_pares_de_ciudad$YEAR)))))
           print(sort(unique(as.factor(trafico_trimestral_por_pares_de_ciudad$YEAR))))
@@ -123,17 +134,104 @@ View(trafico_trimestral_por_pais)
         print(sort(unique(as.factor(trafico_trimestral_por_pares_de_ciudad$CITY2))))
           print(length(sort(unique(as.factor(trafico_trimestral_por_pares_de_ciudad$CITY2)))))
       
-##3
-    print(as.factor(trafico_trimestral_por_pares_de_ciudad$YEAR))
           
+    
+    
+    #La Tarea consiste en seleccionar un gráfico y describir su uso, sus características y realizar una demostración en base a una columna de la Fuente de Datos seleccionada por el Grupo.
+    # barplot()
+    # hist() 
+    # lines(), , points(), legend(), text() y title()
+    # plot() y pie()
+    # dotchart() y boxplot()
+    #   Buen trabajo !!!|
+    #abline(), 
           
+
+
+  # Limpieza de datoss
+  trafico_mensual_por_linea_aerea <- na.omit(trafico_mensual_por_linea_aerea)
+    View(trafico_mensual_por_linea_aerea)
+  
+  # Nombres y cantidad de aereolineas
+  print(length(sort(unique(as.factor(trafico_mensual_por_linea_aerea$`AIRLINE NAME`)))))
+    print(sort(unique(as.factor(trafico_mensual_por_linea_aerea$`AIRLINE NAME`))))
+  
+  # Seleción de datos por año
+  año <- 2015
+  trafico_mensual_por_linea_aerea <- trafico_mensual_por_linea_aerea[trafico_mensual_por_linea_aerea$YEAR==año, ]
+    View(trafico_mensual_por_linea_aerea) #Comprobar integridad de los datos
+    
+  # Ordenamiento alfabetico por linea aerea
+  trafico_mensual_por_linea_aerea <- trafico_mensual_por_linea_aerea[order(trafico_mensual_por_linea_aerea$`AIRLINE NAME`), ]
+     View(trafico_mensual_por_linea_aerea)
+  
+  # Trabajo con los datos deseados
+    nombres_de_aereolineas <- sort(unique(as.factor(trafico_mensual_por_linea_aerea$`AIRLINE NAME`)))
+
+    total_passengers <- c(1:length(nombres_de_aereolineas))
+    
+    #Creación de data frame por aereolinea
+    for (i in 1:length(nombres_de_aereolineas)){
+        airline <- trafico_mensual_por_linea_aerea[trafico_mensual_por_linea_aerea$`AIRLINE NAME`==nombres_de_aereolineas[i], ]
+        passengers <- sum(airline$`PASSENGERS TO INDIA`) + sum(airline$`PASSENGERS FROM INDIA`)
+        total_passengers[i] <- passengers
+    }
+    
+    # Data frame final
+    tabla <- data.frame(nombres_de_aereolineas, total_passengers )
+    tabla <- tabla[order(tabla$total_passengers),]
+    View(tabla)
+    
+      #Datos encima del promedio
+      trafico_total <- sum(tabla$total_passengers)
       
-      #Misión obtener todo el código de ... :D 
+      trafico_promedio <- mean(tabla$total_passengers)
       
-      #Concatenar codigo con ; .  cat(), es analogo a un print(), pero no asigna enter luego de ejecutarce  
-      #Se puede asiganar de derecha a izquierda -> OUO ;
-      # cat(paste("Algo", variable, "Algo")) un print limpio
-      # ls() Un let see de variables
-      # rm(variable)
-      #class(variable)
+      tabla <- tabla[tabla$total_passengers >= trafico_promedio, ]
       
+      tabla[["trafico_porcentual"]]
+      
+      tabla <- data.frame(tabla$nombres_de_aereolineas, (tabla$total_passengers / trafico_total))
+        colnames(tabla)[1] <- "nombres_de_aereolineas"; colnames(tabla)[2] <- "trafico_porcentual" 
+    
+      class(tabla$trafico_porcentual)
+      View(tabla)
+    
+      #Datos encima del promedio superior
+        
+        tabla <- tabla[tabla$trafico_porcentual >= mean(tabla$trafico_porcentual), ]
+        
+      View(tabla)      
+      
+        tabla <- rbind(tabla, data.frame(nombres_de_aereolineas = "O. A.", trafico_porcentual = (1 - sum(tabla$trafico_porcentual)) ))
+        
+      #tabla <- tabla[-c(7), ] #En caso de emeregencia
+        
+      #Trabajo gráfico
+        
+      #Creación del histograma
+      barplot(tabla[["trafico_porcentual"]],names.arg = droplevels(tabla[["nombres_de_aereolineas"]]), 
+        xlab = "Aereolineas",
+        ylab = "Porcentaje de pasajeros",
+        col = "goldenrod2",
+        main = paste("Distribución del trafico aereo mensual en",año),
+        border = "black"
+        )
+      
+      #Ordenando la data
+      tabla <- tabla[order(tabla$nombres_de_aereolineas),]
+      View(tabla)
+      
+      #Creación grafica mediante plot
+      plot(droplevels(tabla[["nombres_de_aereolineas"]]), 
+           tabla[["trafico_porcentual"]], 
+           type="l", 
+           xlab = "Aereolineas",
+           ylab = "Porcentaje de pasajeros")
+      abline(h = tabla[["trafico_porcentual"]], v = c((0:12)/2), col = "gray")
+      legend("top", paste(año), pch=0, title=paste("N° T.P = ", trafico_total))
+      points(1:6, tabla[["trafico_porcentual"]])      
+      lines(1, 1 , col = "red", lty = 5) #Grafica funciones
+      
+      #c((0:12)/2)
+      #c((0:5)/10)
