@@ -6,3 +6,4 @@
       # ls() Un let see de variables
       # rm(variable)
       #class(variable)
+      # >?<funcion de la cual se de sea cononcer>

@@ -49,11 +49,6 @@ View(trafico_trimestral_por_pais)
   #titulos_de_clasificacion <- head(trafico_mensual_por_linea_aerea, 1)
   #View(titulos_de_clasificacion)
   
-  #Pruebas...
-  
-
-
-    
 # Análisis exploratotio de datos
   
   #Detectar los datos numéricos
@@ -99,55 +94,38 @@ View(trafico_trimestral_por_pais)
       print(numero_de_aereolineas)
       
       ## Conocer los elemento de cada columna
-      print(length(sort(unique(as.factor(trafico_mensual_por_linea_aerea$YEAR)))))
-        print(sort(unique(as.factor(trafico_mensual_por_linea_aerea$YEAR))))
-          
-      print(length(sort(unique(as.factor(trafico_mensual_por_linea_aerea$MONTH)))))
-        print(unique(as.factor(trafico_mensual_por_linea_aerea$MONTH)))
-      
-      print(length(sort(unique(as.factor(trafico_mensual_por_linea_aerea$`AIRLINE NAME`)))))
-        print(sort(unique(as.factor(trafico_mensual_por_linea_aerea$`AIRLINE NAME`))))
-      
-      print(length(sort(unique(as.factor(trafico_mensual_por_linea_aerea$`CARRIER TYPE`)))))
-        print(sort(unique(as.factor(trafico_mensual_por_linea_aerea$`CARRIER TYPE`))))
-      
-
+        ##1  
+        print(length(sort(unique(as.factor(trafico_mensual_por_linea_aerea$YEAR)))))
+          print(sort(unique(as.factor(trafico_mensual_por_linea_aerea$YEAR))))
+            
+        print(length(sort(unique(as.factor(trafico_mensual_por_linea_aerea$MONTH)))))
+          print(unique(as.factor(trafico_mensual_por_linea_aerea$MONTH)))
         
-      ##2          
-        print(sort(unique(as.factor(trafico_trimestral_por_pais$YEAR))))
-        print(sort(unique(as.factor(trafico_trimestral_por_pais$QUARTER))))
+        print(length(sort(unique(as.factor(trafico_mensual_por_linea_aerea$`AIRLINE NAME`)))))
+          print(sort(unique(as.factor(trafico_mensual_por_linea_aerea$`AIRLINE NAME`))))
         
-        print(length(sort(unique(as.factor(trafico_trimestral_por_pais$`COUNTRY NAME`)))))
-          print(sort(unique(as.factor(trafico_trimestral_por_pais$`COUNTRY NAME`))))
-      
-      ##3 
+        print(length(sort(unique(as.factor(trafico_mensual_por_linea_aerea$`CARRIER TYPE`)))))
+          print(sort(unique(as.factor(trafico_mensual_por_linea_aerea$`CARRIER TYPE`))))
           
-        print(length(sort(unique(as.factor(trafico_trimestral_por_pares_de_ciudad$YEAR)))))
-          print(sort(unique(as.factor(trafico_trimestral_por_pares_de_ciudad$YEAR))))
+        ##2          
+          print(sort(unique(as.factor(trafico_trimestral_por_pais$YEAR))))
+          print(sort(unique(as.factor(trafico_trimestral_por_pais$QUARTER))))
           
-          print(sort(unique(as.factor(trafico_trimestral_por_pares_de_ciudad$QUARTER))))
-          
+          print(length(sort(unique(as.factor(trafico_trimestral_por_pais$`COUNTRY NAME`)))))
+            print(sort(unique(as.factor(trafico_trimestral_por_pais$`COUNTRY NAME`))))
         
+        ##3
+          print(length(sort(unique(as.factor(trafico_trimestral_por_pares_de_ciudad$YEAR)))))
+            print(sort(unique(as.factor(trafico_trimestral_por_pares_de_ciudad$YEAR))))
+            print(sort(unique(as.factor(trafico_trimestral_por_pares_de_ciudad$QUARTER))))
           print(sort(unique(as.factor(trafico_trimestral_por_pares_de_ciudad$CITY1))))
-          print(length(sort(unique(as.factor(trafico_trimestral_por_pares_de_ciudad$CITY1)))))
-      
-        print(sort(unique(as.factor(trafico_trimestral_por_pares_de_ciudad$CITY2))))
-          print(length(sort(unique(as.factor(trafico_trimestral_por_pares_de_ciudad$CITY2)))))
-      
-          
+            print(length(sort(unique(as.factor(trafico_trimestral_por_pares_de_ciudad$CITY1)))))
+          print(sort(unique(as.factor(trafico_trimestral_por_pares_de_ciudad$CITY2))))
+            print(length(sort(unique(as.factor(trafico_trimestral_por_pares_de_ciudad$CITY2)))))
+        
+            
+# 3W: Pre-ordenamiento de la data para su graficación    
     
-    
-    #La Tarea consiste en seleccionar un gráfico y describir su uso, sus características y realizar una demostración en base a una columna de la Fuente de Datos seleccionada por el Grupo.
-    # barplot()
-    # hist() 
-    # lines(), , points(), legend(), text() y title()
-    # plot() y pie()
-    # dotchart() y boxplot()
-    #   Buen trabajo !!!|
-    #abline(), 
-          
-
-
   # Limpieza de datoss
   trafico_mensual_por_linea_aerea <- na.omit(trafico_mensual_por_linea_aerea)
     View(trafico_mensual_por_linea_aerea)
@@ -203,24 +181,24 @@ View(trafico_trimestral_por_pais)
         
       View(tabla)      
       
-        tabla <- rbind(tabla, data.frame(nombres_de_aereolineas = "O. A.", trafico_porcentual = (1 - sum(tabla$trafico_porcentual)) ))
+        tabla <- rbind(tabla, data.frame(nombres_de_aereolineas = "OTRAS AEREOLINEAS", trafico_porcentual = (1 - sum(tabla$trafico_porcentual)) ))
         
       #tabla <- tabla[-c(7), ] #En caso de emeregencia
         
       #Trabajo gráfico
+      #Ordenando la data
+      tabla <- tabla[order(tabla$nombres_de_aereolineas),]
+      View(tabla)
+      
         
       #Creación del histograma
       barplot(tabla[["trafico_porcentual"]],names.arg = droplevels(tabla[["nombres_de_aereolineas"]]), 
         xlab = "Aereolineas",
         ylab = "Porcentaje de pasajeros",
         col = "goldenrod2",
-        main = paste("Distribución del trafico aereo mensual en",año),
+        main = paste("Distribución del trafico aereo mensual en",año), 
         border = "black"
         )
-      
-      #Ordenando la data
-      tabla <- tabla[order(tabla$nombres_de_aereolineas),]
-      View(tabla)
       
       #Creación grafica mediante plot
       plot(droplevels(tabla[["nombres_de_aereolineas"]]), 
@@ -228,10 +206,28 @@ View(trafico_trimestral_por_pais)
            type="l", 
            xlab = "Aereolineas",
            ylab = "Porcentaje de pasajeros")
+      title(paste("Distribución del trafico aereo mensual en",año))
       abline(h = tabla[["trafico_porcentual"]], v = c((0:12)/2), col = "gray")
       legend("top", paste(año), pch=0, title=paste("N° T.P = ", trafico_total))
       points(1:6, tabla[["trafico_porcentual"]])      
-      lines(1, 1 , col = "red", lty = 5) #Grafica funciones
+      lines(droplevels(tabla[["nombres_de_aereolineas"]]), 
+            tabla[["trafico_porcentual"]], col = "red", lty = 5)
+      for (j in 1:nrow(tabla)) {
+      text(j,
+             (tabla[["trafico_porcentual"]][j] + 0.01),
+             paste(format((tabla[["trafico_porcentual"]][j]*100), digits = 4, nsmall = 2 ), "%"))      
+      }
       
-      #c((0:12)/2)
-      #c((0:5)/10)
+      #Creación mediante pie bidimensional
+      pie(tabla[["trafico_porcentual"]],
+          labels = droplevels(tabla[["nombres_de_aereolineas"]]), 
+          col = c("aquamarine2", "cadetblue2", "chartreuse1", "darkolivegreen3", "cyan3", "dodgerblue3"), 
+          main = paste("Distribución del tráfico aéreo mensual en",año), 
+          radius = 1, 
+          col.main = "darkgray")
+      
+      
+      #, "gold2"
+      #  col = rainbow(nrow(tabla)), o c("aquamarine2", "cadetblue2", "chartreuse1", "darkolivegreen3", "cyan3", "dodgerblue3")
+      
+
