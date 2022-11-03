@@ -6,12 +6,9 @@ install.packages("extrafont")
 
 library(ggthemes)
 library(ggplot2)
+
+
 library(DataExplorer)
-
-library(readxl)
-library(readr)
-library(openxlsx)
-
 library(extrafont)
 
 font_import()                 #Escanea las fuentes en el equipo
@@ -21,6 +18,9 @@ fonts()                       #Vector de fuentes disponibles
 ##  [3] "Arial Black"                  "Arial"                       
 ##  [5] "Arial Narrow"                 "Arial Rounded MT Bold"  :P
 
+library(readxl)
+library(readr)
+library(openxlsx)
 
 
 Airlinewise_Monthly_International_Air_Traffic_To_And_From_The_Indian_Territory <- read_csv("datasets/Airlinewise Monthly International Air Traffic To And From The Indian Territory.csv")
@@ -183,8 +183,6 @@ View(trafico_trimestral_por_pais)
       
         tabla <- rbind(tabla, data.frame(nombres_de_aereolineas = "OTRAS AEREOLINEAS", trafico_porcentual = (1 - sum(tabla$trafico_porcentual)) ))
         
-      #tabla <- tabla[-c(7), ] #En caso de emeregencia
-        
       #Trabajo gráfico
       #Ordenando la data
       tabla <- tabla[order(tabla$nombres_de_aereolineas),]
@@ -192,39 +190,87 @@ View(trafico_trimestral_por_pais)
       
         
       #Creación del histograma
-      barplot(tabla[["trafico_porcentual"]],names.arg = droplevels(tabla[["nombres_de_aereolineas"]]), 
+      barplot(
+        tabla[["trafico_porcentual"]],
+        names.arg = droplevels(tabla[["nombres_de_aereolineas"]]), 
         xlab = "Aereolineas",
         ylab = "Porcentaje de pasajeros",
         col = "goldenrod2",
-        main = paste("Distribución del trafico aereo mensual en",año), 
+        main = paste("Distribución del trafico aereo mensual total de personas en",año), 
         border = "black"
         )
       
-      #Creación grafica mediante plot
-      plot(droplevels(tabla[["nombres_de_aereolineas"]]), 
-           tabla[["trafico_porcentual"]], 
-           type="l", 
-           xlab = "Aereolineas",
-           ylab = "Porcentaje de pasajeros")
-      title(paste("Distribución del trafico aereo mensual en",año))
-      abline(h = tabla[["trafico_porcentual"]], v = c((0:12)/2), col = "gray")
-      legend("top", paste(año), pch=0, title=paste("N° T.P = ", trafico_total))
-      points(1:6, tabla[["trafico_porcentual"]])      
-      lines(droplevels(tabla[["nombres_de_aereolineas"]]), 
-            tabla[["trafico_porcentual"]], col = "red", lty = 5)
-      for (j in 1:nrow(tabla)) {
-      text(j,
-             (tabla[["trafico_porcentual"]][j] + 0.01),
-             paste(format((tabla[["trafico_porcentual"]][j]*100), digits = 4, nsmall = 2 ), "%"))      
-      }
-      
-      #Creación mediante pie bidimensional
+#Creación grafica mediante plot
+  plot(droplevels(tabla[["nombres_de_aereolineas"]]), 
+      tabla[["trafico_porcentual"]], 
+      type="l", 
+      xlab = "Aereolineas",
+      ylab = "Porcentaje de pasajeros")
+  title(paste("Distribución del trafico aereo mensual total de personas en",año))
+  abline(h = tabla[["trafico_porcentual"]], 
+         v = c((0:12)/2), 
+         col = "gray")
+  legend("top", "(Aereolinea, N°T.P / P.A )", pch=1, 
+         title=paste("N° T.P = ", trafico_total))
+  points(1:6, tabla[["trafico_porcentual"]])      
+  lines(droplevels(tabla[["nombres_de_aereolineas"]]), 
+        tabla[["trafico_porcentual"]], 
+        col = "red")
+  for (j in 1:nrow(tabla)) {
+    text(j,
+        (tabla[["trafico_porcentual"]][j] + 0.01),
+        paste(format((tabla[["trafico_porcentual"]][j]*100),
+                      digits = 4, 
+                      nsmall = 2 ),
+              "%")
+        )    
+  }
+  
+# Creación grafica de LINEA mediante plot
+  x <- 1:6; y1 <- 1/x; y2 <- 2/x
+  plot(droplevels(tabla[["nombres_de_aereolineas"]]), 
+       c(y1, y2), 
+      type="n", 
+      xlab = "Aereolineas",
+      ylab = "Porcentaje de pasajeros")
+  title(paste("Distribución del trafico aereo mensual total de personas en",año))
+  abline(h = tabla[["trafico_porcentual"]], 
+         v = c((0:12)/2), 
+         col = "gray")
+  legend("top", "(Aereolinea, N°T.P / P.A )", pch=1, 
+         title=paste("N° T.P = ", trafico_total))
+  points(1:6, tabla[["trafico_porcentual"]])      
+  lines(droplevels(tabla[["nombres_de_aereolineas"]]), 
+        tabla[["trafico_porcentual"]], 
+        col = "red")
+  for (j in 1:nrow(tabla)) {
+    text(j,
+        (tabla[["trafico_porcentual"]][j] + 0.01),
+        paste(format((tabla[["trafico_porcentual"]][j]*100),
+                      digits = 4, 
+                      nsmall = 2 ),
+              "%")
+        )    
+  }
+      c((1:60)/100)
+    
+    ?lines()
+  
+  
+  
+      #Creación grfico circular mediante pie bidimensional
       pie(tabla[["trafico_porcentual"]],
           labels = droplevels(tabla[["nombres_de_aereolineas"]]), 
-          col = c("aquamarine2", "cadetblue2", "chartreuse1", "darkolivegreen3", "cyan3", "dodgerblue3"), 
+          col = c("aquamarine2", 
+                  "cadetblue2", 
+                  "chartreuse1", 
+                  "darkolivegreen3", 
+                  "cyan3", 
+                  "dodgerblue3"), 
           main = paste("Distribución del tráfico aéreo mensual en",año), 
           radius = 1, 
-          col.main = "darkgray")
+          col.main = "darkgray"
+          )
       
       
       #, "gold2"
