@@ -221,8 +221,7 @@ View(trafico_trimestral_por_pais)
         (tabla[["trafico_porcentual"]][j] + 0.01),
         paste(format((tabla[["trafico_porcentual"]][j]*100),
                       digits = 4, 
-                      nsmall = 2 ),
-              "%")
+                      nsmall = 2),"%")
         )    
   }
   
@@ -272,8 +271,23 @@ View(trafico_trimestral_por_pais)
           col.main = "darkgray"
           )
       
-      
       #, "gold2"
       #  col = rainbow(nrow(tabla)), o c("aquamarine2", "cadetblue2", "chartreuse1", "darkolivegreen3", "cyan3", "dodgerblue3")
       
+      # parcial :P
+      
+      
+      trafico_trimestral_por_pares_de_ciudad 
+      View(trafico_trimestral_por_pares_de_ciudad) 
+      
+      ciudades2 <- trafico_trimestral_por_pares_de_ciudad[["CITY2"]]
+      
+      
+      length(unique(ciudades2))
 
+      View(ciudades2)
+      nombres_de_ciudades_2 <- data.frame(sort(unique(ciudades2)))
+      View(nombres_de_ciudades_2) 
+      write.csv(nombres_de_ciudades_2,".\\nombres_ciudades_2.csv", row.names = FALSE)
+      
+      
