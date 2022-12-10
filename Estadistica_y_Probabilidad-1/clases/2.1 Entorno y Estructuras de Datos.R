@@ -10,27 +10,32 @@
 # ---
   #---- Inicializacion ----
 # ---
-install.packages("rstudioapi")
+install.packages("rstudioapi") #Reinicia la sesión
 # Para limpiar el workspace, por si hubiera algun dataset o informacion cargada
   
 rm(list = ls()) # borra todas las variables 1---
 # Cambiar el directorio de trabajo
-getwd()
-#install.packages(c("rstudioapi", "ggplot2"))
+getwd() #Muestra el directorio actual de trabajo
+
+# install.packages(c("rstudioapi", "ggplot2"))
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path)) #2 Simplemente para fijar como nuevo directorio de tarbajo
+setwd("C:/Users/CARLOS RAUL/Documents/MyGithub/r-probability-and-statistics/Estadistica_y_Probabilidad-1/clases/")
 getwd()
+
 # libreria::funcion()
 
 # Uso de Librerías
-library() # libreria guardadas(de base instaladas)
-search()  # libreria cargadas en el entorno
-require(ggplot2)
+library() # Muestra las librerias guardadas(de base instaladas)
+search()  # Muestra laslibrerias cargadas en el entorno
+require(ggplot2)  #Agregas
 library()
 search()
 
 # Relación de objetos en una libreria
-ls("package:ggplot2") #
-help(ylim, package = "ggplot2") #Detalles del packete
+
+ls("package:ggplot2") #Muestra todas las funciones de la libreria
+
+help(ylim, package = "ggplot2") #Detalles del packete en espesificp
 help(ggplot2)  #Muestra detalles de la libreria
 
 
