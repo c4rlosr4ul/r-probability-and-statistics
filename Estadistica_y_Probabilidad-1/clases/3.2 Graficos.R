@@ -4,6 +4,7 @@
 #  Mg. Javier Vega  #
 #-------------------#
 # Para limpiar el workspace, por si hubiera algun dataset o informacion cargada
+
 rm(list = ls()) # borra todo
 
 # Cambiar el directorio de trabajo

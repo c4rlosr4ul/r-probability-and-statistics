@@ -63,13 +63,14 @@ names(options())
 options("digits")
 
 100/998
-options(digits=4, prompt="CJ?> ") #Cambia digitos a cuatro y cambia el simbolo ">" por "JVG>" xD?
+options(digits=4, prompt="> ") #Cambia digitos a cuatro y cambia el simbolo ">" por "JVG>" xD?
 100/998
 getOption("digits") ; options("digits")
 options(digits=20)
 100/998
 options(digits=7, prompt="> ")
 100/998
+169/33 +10 #si no cro a la izquierda cuenta
 
 # options(scipen = n)
 # Controla la notación exponencial
@@ -80,6 +81,8 @@ options(digits=7, prompt="> ")
 #  método realiza cambios en toda la configuración de R.
 # se puede restablecer utilizando 0 como valor de "n"
 options("scipen")
+
+
 
 num2 <- 1.128347132904321674821
 num2
@@ -101,6 +104,7 @@ format(num2, scientific = T) ; format(num, scientific = TRUE)
 
 num3 =2.21e+09
 num3
+
 format(num3, scientific = FALSE) #FALSE para negar o quitR
 format(num3, scientific = TRUE) #FALSE para negar o quitR
 
@@ -128,6 +132,7 @@ pi # El número pi
 help("Math")
 help("Arithmetic")
 help("Trig")
+  # atan(y,x) La ecuación para determinar ATan2 es: tanθ = y / x
 help("log")
 help("Special")
 
@@ -140,7 +145,7 @@ help("Special")
 # round(valor que quieres redondear, número de decimales)
 round(5.342, 2) ; round(-5.342, 2)
 round(5.346, 2) ; round(-5.346, 2)
-round(5.3455, 2) ; round(-5.3455, 2)
+round(5.3455, 3) ; round(-5.3455, 3)
 round(5.3451, 2) ; round(-5.3451, 2)
 round(5.3450, 2) ; round(-5.3450, 2)#Lo redondea hacia abajo hasta 5:....50 = 5....4
 round(5.345, 2) ; round(-5.345, 2)
@@ -326,7 +331,11 @@ nivel.ingles <- c("medio", "medio", "bajo",  "medio", "bajo","medio", "alto",  "
 nivel.ingles
 length(nivel.ingles)
 levels(nivel.ingles)
-
+    x <- gl(2, 4, 8)
+    x
+    levels(x)[1] <- "low"
+    levels(x)[2] <- "high"
+    x
 summary(nivel.ingles)
 
 fnivel.ingles <- ordered(nivel.ingles,
@@ -526,7 +535,7 @@ lista$nombre
 lista$edad
 lista$calificaciones
 lista[3]
-lista[[3]][1]
+lista[[3]][1] #Del vector tabla[[3]] en elemento 1 es 10 :d
 
 #sE PUEDE REALIZAR OPERECINES SOBRE ELLEMENTOS DE LA LISTA Y NO SOBRE TODA LA LISTA :D :P
 
@@ -554,6 +563,7 @@ mean(datos[,"edad"])
 mean(datos2[,"edad"])#Erroe porque so ncaracterres :P
 
 mode(datos)
+
 is.matrix(datos)
 mode(datos2) 
 is.matrix(datos2)
