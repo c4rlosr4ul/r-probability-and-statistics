@@ -11,12 +11,17 @@
 rm(list = ls())
 
 # Cambiar el directorio de trabajo
+setwd("C:/Users/CARLOS RAUL/Documents/MyGithub/r-probability-and-statistics/Estadistica_y_Probabilidad-1")
+
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 getwd()
+
 options(scipen=999) # para remover la notacion cientifica
 
 # Uso de Librerías
+
 library(readxl)
+
 library(car)
 
 ########################################

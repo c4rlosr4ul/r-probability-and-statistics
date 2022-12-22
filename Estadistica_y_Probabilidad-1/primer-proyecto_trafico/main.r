@@ -4,6 +4,13 @@ install.packages("ggthemes")
 install.packages("ggplot2")
 install.packages("extrafont")
 
+# Para limpiar el workspace, por si hubiera algun dataset o informacion cargada
+rm(list = ls())
+
+# Cambiar el directorio de trabajo
+setwd("C:/Users/CARLOS RAUL/Documents/MyGithub/r-probability-and-statistics/Estadistica_y_Probabilidad-1/primer-proyecto_trafico/")
+
+
 library(ggthemes)
 library(ggplot2)
 
@@ -79,7 +86,7 @@ View(trafico_trimestral_por_pais)
       plot_histogram(datos_num)
       
       plot.histogram(trafico_mensual_por_linea_aerea)
-#Las aerelineas son:
+    #Las aerelineas son:
       #Variables categoricas <> factores
       col_aereolineas <- trafico_mensual_por_linea_aerea$`AIRLINE NAME`
       mode(col_aereolineas) #Tipo de dato      
@@ -289,5 +296,34 @@ View(trafico_trimestral_por_pais)
       nombres_de_ciudades_2 <- data.frame(sort(unique(ciudades2)))
       View(nombres_de_ciudades_2) 
       write.csv(nombres_de_ciudades_2,".\\nombres_ciudades_2.csv", row.names = FALSE)
+      
+# Examen final :D 
+      
+      # El Trabajo de Investigación debe ser presentado mediante los archivos que consideren necesarios.
+      # El Trabajo de Investigación debe ser presentado únicamente por el encargado del Grupo.
+      # El Grupo, al momento de realizar la presentación de su Trabajo de Investigación, podrá acompañarse de diapositivas.
+      # La exposición tendrá una duración máxima de 20 minutos.
+      # El trabajo consiste en realizar el (análisis descriptivo) del Dataset que cada Grupo selecciono, el cual consiste en:
+      
+      # Dos tablas de frecuencia agrupada basada en variable cualitativa.
+          #Se emplearan: El data frame de trafico aereo mensual por linea aerea 
+        
+          
+      
+      # Dos tablas de frecuencia No agrupada basada en variable cuantitativa.
+      
+      
+      # Dos tablas de frecuencia agrupada basada en variable cuantitativa.
+      
+      # Una tabla de frecuencia bivariada basada en variable cualitativa vs. cualitativa.
+      
+      # Una tabla de frecuencia bivariada basada en variable cualitativa vs. cuantitativa.
+      
+      # Una tabla de frecuencia bivariada basada en variable cuantitativa vs. cuantitativa.
+      # Calcular: Cuartiles, Media, Moda, Rango, Varianza, Desviación Estándar y Coeficiente de variación de una variable cuantitativa.
+      
+      # Gráfico de Dispersión, Análisis de Correlación e Interpretación.
+      # Generación de modelos (Lineal y No Lineal) e Interpretación.    
+      
       
       
